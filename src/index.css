@@ -1,0 +1,234 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+
+  --color-brand-cream: #FDFCF8;
+  --color-brand-gold: #C5A059;
+  --color-brand-slate: #1A1A1A;
+  --color-brand-warm: #F5F1E9;
+
+  --animate-marquee: marquee 35s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-brand-cream text-brand-slate font-sans antialiased text-base md:text-lg lg:text-[19px] leading-relaxed;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif tracking-tight;
+  }
+
+  /* Focus states for accessibility */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-gold;
+  }
+}
+
+.glass-nav {
+  @apply bg-brand-cream/80 backdrop-blur-md border-b border-brand-gold/10;
+}
+
+.section-padding {
+  @apply py-20 px-6 md:px-12 lg:px-24;
+}
+
+.deferred-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}
+
+.booking-input {
+  @apply min-h-11 w-full border-b border-gray-200 bg-transparent py-2.5 text-base font-medium text-brand-slate transition-colors focus:border-brand-gold focus:outline-none md:text-[17px];
+}
+
+.fallback-link {
+  @apply inline-flex min-h-11 items-center justify-center gap-2 border border-brand-slate bg-white px-4 py-3 text-sm font-extrabold uppercase tracking-widest text-brand-slate transition-colors hover:bg-brand-slate hover:text-white;
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes hero-soft-zoom {
+  from {
+    transform: scale(1.035);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.hero-media {
+  animation: hero-soft-zoom 1200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-enter {
+  opacity: 0;
+  animation: hero-fade-up 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform;
+}
+
+.hero-delay-1 {
+  animation-delay: 120ms;
+}
+
+.hero-delay-2 {
+  animation-delay: 220ms;
+}
+
+.hero-delay-3 {
+  animation-delay: 320ms;
+}
+
+.hero-delay-4 {
+  animation-delay: 420ms;
+}
+
+.hero-delay-5 {
+  animation-delay: 520ms;
+}
+
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-ready .reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-ready .reveal-scale {
+  transform: translate3d(0, 22px, 0) scale(0.96);
+}
+
+.reveal-ready .reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.reveal-delay-1 {
+  transition-delay: 80ms;
+}
+
+.reveal-delay-2 {
+  transition-delay: 160ms;
+}
+
+.reveal-delay-3 {
+  transition-delay: 240ms;
+}
+
+.reveal-delay-4 {
+  transition-delay: 320ms;
+}
+
+@media (max-width: 767px) {
+  .hero-enter {
+    animation-duration: 620ms;
+  }
+
+  .reveal-ready .reveal {
+    transform: translate3d(0, 14px, 0);
+    transition-duration: 520ms;
+  }
+
+  .reveal-ready .reveal-scale {
+    transform: translate3d(0, 12px, 0) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+
+  .hero-enter,
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hide scrollbar for trust bar horizontal scroll on mobile */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Safe area padding for sticky mobile CTA */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Scroll margin for anchor navigation with fixed navbar */
+[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* Prose styles for legal pages (Privacy, Cookie, Terms) */
+.prose h2 {
+  @apply text-2xl mt-10 mb-4 font-serif;
+}
+
+.prose h3 {
+  @apply text-xl mt-8 mb-3 font-serif;
+}
+
+.prose p {
+  @apply text-gray-600 leading-relaxed mb-4 text-base md:text-lg;
+}
+
+.prose ul {
+  @apply list-disc list-inside mb-6 space-y-2 text-base md:text-lg;
+}
+
+.prose li {
+  @apply text-gray-600 leading-relaxed text-base md:text-lg;
+}
+
+.prose a {
+  @apply text-brand-gold underline underline-offset-4 hover:text-brand-slate transition-colors;
+}
+
+.prose strong {
+  @apply text-brand-slate font-semibold;
+}
